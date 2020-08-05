@@ -1,6 +1,6 @@
 node{
  stage('Git Checkout'){
-	git 'https://github.com/javahometech/my-app'  
+	git 'https://github.com/anisur76/SLP_UNIT2'  
  }
  stage('Maven Package'){
 	sh 'mvn clean package'
@@ -22,14 +22,14 @@ node{
 	try{
 		def dockerRm = 'docker rm -f myweb'
 		sshagent(['docker-dev']) {
-			sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.17.196 ${dockerRm}"
+			sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.17.196 ${dockerRm}"
 		}
 	}catch(error){
 		//  do nothing if there is an exception
 	}
  }
  stage('Deploy to Dev Environment'){
-   def dockerRun = 'docker run -d -p 8080:8080 --name myweb kammana/myweb:0.0.1 '
+   def dockerRun = 'docker run -d -p 8080:8080 --name myweb anisur76/myweb:0.0.1 '
    sshagent(['docker-dev']) {
     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.17.196 ${dockerRun}"
    }
