@@ -12,7 +12,6 @@ node{
   stage('Build Docker Image'){
     sh 'docker build -t kammana/my-app:0.0.1 .'
   }
-
   stage('Upload Image to DockerHub'){
     withCredentials([string(credentialsId: 'docker-hub', variable: 'password')]) {
       sh "docker login -u kammana -p ${password}"
